@@ -1,10 +1,7 @@
 import { useState } from "react";
 import Container from "@mui/material/Container";
-import Typography from "@mui/material/Typography";
-import AppBar from "@mui/material/AppBar";
 import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
-import Toolbar from "@mui/material/Toolbar";
 import AddIcon from "@mui/icons-material/Add";
 import ViewListIcon from "@mui/icons-material/ViewList";
 import BarChartIcon from "@mui/icons-material/BarChart";
@@ -16,19 +13,14 @@ import AddPage from "./pages/Add/AddPage";
 import LogPage from "./pages/Log/LogPage";
 import StatsPage from "./pages/Stats/StatsPage";
 import Counter from "./features/counter/Counter";
+import TopBar from "./layout/TopBar";
 
 const App = () => {
   const [value, setValue] = useState("");
 
   return (
     <>
-      <AppBar position="static">
-        <Toolbar>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Fitness
-          </Typography>
-        </Toolbar>
-      </AppBar>
+      <TopBar />
       <Container>
         <BrowserRouter>
           <Routes>
