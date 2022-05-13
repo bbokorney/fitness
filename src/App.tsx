@@ -15,6 +15,7 @@ import {
 import AddPage from "./pages/Add/AddPage";
 import LogPage from "./pages/Log/LogPage";
 import StatsPage from "./pages/Stats/StatsPage";
+import Counter from "./features/counter/Counter";
 
 const App = () => {
   const [value, setValue] = useState("");
@@ -34,6 +35,7 @@ const App = () => {
             <Route path="/" element={<AddPage />} />
             <Route path="/log" element={<LogPage />} />
             <Route path="/stats" element={<StatsPage />} />
+            <Route path="/counter" element={<Counter />} />
           </Routes>
           <Paper
             sx={{
@@ -55,6 +57,9 @@ const App = () => {
                 <BottomNavigationAction icon={<ViewListIcon />} />
               </Link>
               <Link to="/stats">
+                <BottomNavigationAction icon={<BarChartIcon />} />
+              </Link>
+              <Link to="/counter">
                 <BottomNavigationAction icon={<BarChartIcon />} />
               </Link>
             </BottomNavigation>

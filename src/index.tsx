@@ -1,6 +1,8 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
 import CssBaseline from "@mui/material/CssBaseline";
+import { Provider } from "react-redux";
+import { store } from "./app/store";
 import App from "./App";
 import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
@@ -12,6 +14,8 @@ const root = createRoot(container);
 root.render(
   <React.StrictMode>
     <CssBaseline />
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>,
 );
