@@ -1,43 +1,49 @@
-import { useState } from "react";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
-import {
-  collection, getDocs, QueryDocumentSnapshot,
-} from "firebase/firestore";
-import { Activity } from "../../models/Activity";
-import getDB from "../../lib/firebase";
-
-const db = getDB();
+import { selectActivites, listActivities } from "../../features/activities/activitiesSlice";
+import { useAppSelector, useAppDispatch } from "../../app/hooks";
 
 const LogPage = () => {
-  const [activities, setActivites] = useState<QueryDocumentSnapshot<Activity>[]>([]);
+  const dispatch = useAppDispatch();
+  const { status, errorMessage, activities } = useAppSelector(selectActivites);
 
-  const onClickRefresh = async () => {
-    const querySnapshot = await getDocs(collection(db, "activities"));
-    const a: QueryDocumentSnapshot<Activity>[] = [];
-    querySnapshot.forEach((doc) => {
-      a.push(doc as QueryDocumentSnapshot<Activity>);
-    });
-    setActivites(a);
-  };
+  let elem;
 
-  const renderedActivities = activities.map((a) => (
-    <ListItem key={a.id}>
-      <ListItemText>{a.data().distance}</ListItemText>
-    </ListItem>
-  ));
+  if (status === "failed") {
+    elem = (
+      <Typography>
+        Error loading activities: {errorMessage}
+      </Typography>
+    );
+  } else if (status === "loading") {
+    elem = (
+      <Typography>
+        Loading...
+      </Typography>
+    );
+  } else if (status === "idle") {
+    const renderedActivities = activities.map((a) => (
+      <ListItem key={a.id}>
+        <ListItemText>{a.data.distance}</ListItemText>
+      </ListItem>
+    ));
+
+    elem = (
+      <List>
+        {renderedActivities}
+      </List>
+    );
+  }
   return (
     <>
       <Typography variant="h6">
         Activity Log
       </Typography>
-      <Button onClick={onClickRefresh} variant="contained">Refresh</Button>
-      <List>
-        {renderedActivities}
-      </List>
+      <Button onClick={() => dispatch(listActivities())} variant="contained">Refresh</Button>
+      {elem}
     </>
   );
 };
