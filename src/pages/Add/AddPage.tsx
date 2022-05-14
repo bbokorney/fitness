@@ -6,7 +6,9 @@ import { useAppSelector, useAppDispatch } from "../../app/hooks";
 import {
   selectActivites,
   upsertActivity,
+  clearLoadingState,
 } from "../../features/activities/activitiesSlice";
+import { alertError } from "../../features/alert/alertSlice";
 
 const AddPage = () => {
   const dispatch = useAppDispatch();
@@ -37,7 +39,8 @@ const AddPage = () => {
   if (status === "loading") {
     message = "Saving...";
   } else if (status === "failed") {
-    message = `Error saving activity: ${errorMessage}`;
+    dispatch(alertError(`Error saving activity: ${errorMessage}`));
+    dispatch(clearLoadingState());
   }
 
   return (

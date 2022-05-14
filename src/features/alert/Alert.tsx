@@ -1,28 +1,29 @@
 import { SyntheticEvent } from "react";
 import Snackbar from "@mui/material/Snackbar";
-import { selectActivites, clearLoadingState } from "../../features/activities/activitiesSlice";
 import { useAppSelector, useAppDispatch } from "../../app/hooks";
+import { selectAlert, clearAlertState } from "./alertSlice";
 
-const AlertComponent = () => {
+const Alert = () => {
   const dispatch = useAppDispatch();
-  const { status, errorMessage } = useAppSelector(selectActivites);
+  const { type, message } = useAppSelector(selectAlert);
 
   const handleClose = (_: SyntheticEvent | Event, reason?: string) => {
     if (reason === "clickaway") {
       return;
     }
-    dispatch(clearLoadingState());
+    dispatch(clearAlertState());
   };
 
-  const open = status === "failed";
+  const open = type !== "none";
   return (
     <Snackbar
       open={open}
       autoHideDuration={6000}
       onClose={handleClose}
-      message={errorMessage}
+      message={message}
       sx={{ bottom: { xs: 70 } }}
     />
   );
 };
-export default AlertComponent;
+
+export default Alert;
