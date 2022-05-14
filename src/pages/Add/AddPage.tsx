@@ -6,13 +6,12 @@ import { useAppSelector, useAppDispatch } from "../../app/hooks";
 import {
   selectActivites,
   upsertActivity,
-  clearLoadingState,
 } from "../../features/activities/activitiesSlice";
-import { alertError } from "../../features/alert/alertSlice";
+import { alertError, alertInfo } from "../../features/alert/alertSlice";
 
 const AddPage = () => {
   const dispatch = useAppDispatch();
-  const { status, errorMessage } = useAppSelector(selectActivites);
+  const { status } = useAppSelector(selectActivites);
 
   const [distance, setDistance] = useState("");
   const [distanceError, setDistanceError] = useState("");
@@ -31,16 +30,26 @@ const AddPage = () => {
     if (distanceError !== "") {
       return;
     }
-    const parsed = parseFloat(distance);
-    dispatch(upsertActivity({ distance: parsed }));
+    try {
+      const parsed = parseFloat(distance);
+      await dispatch(upsertActivity({ distance: parsed })).unwrap();
+      dispatch(alertInfo("Activity saved!"));
+
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      let errorMessage = "Unknown error";
+      if (error.message) {
+        errorMessage = error.message;
+      } else {
+        console.log(error);
+      }
+      dispatch(alertError(`Error saving activity: ${errorMessage}`));
+    }
   };
 
   let message;
   if (status === "loading") {
     message = "Saving...";
-  } else if (status === "failed") {
-    dispatch(alertError(`Error saving activity: ${errorMessage}`));
-    dispatch(clearLoadingState());
   }
 
   return (
