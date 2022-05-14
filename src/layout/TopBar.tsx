@@ -15,6 +15,9 @@ const TopBar = () => {
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
           Fitness
         </Typography>
+        <Typography component="div" sx={{ flexGrow: 1 }}>
+          {process.env.REACT_APP_VERSION}
+        </Typography>
         <IconButton color="inherit" onClick={handleReload}>
           <CachedIcon />
         </IconButton>
