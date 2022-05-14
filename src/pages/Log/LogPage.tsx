@@ -10,32 +10,18 @@ const LogPage = () => {
   const dispatch = useAppDispatch();
   const { status, errorMessage, activities } = useAppSelector(selectActivites);
 
-  let elem;
-
+  let message;
+  let renderedActivities;
   if (status === "failed") {
-    elem = (
-      <Typography>
-        Error loading activities: {errorMessage}
-      </Typography>
-    );
+    message = `Error loading activities: ${errorMessage}`;
   } else if (status === "loading") {
-    elem = (
-      <Typography>
-        Loading...
-      </Typography>
-    );
+    message = "Loading...";
   } else if (status === "idle") {
-    const renderedActivities = activities.map((a) => (
+    renderedActivities = activities.map((a) => (
       <ListItem key={a.id}>
-        <ListItemText>{a.data.distance}</ListItemText>
+        <ListItemText>{a.distance} miles!</ListItemText>
       </ListItem>
     ));
-
-    elem = (
-      <List>
-        {renderedActivities}
-      </List>
-    );
   }
   return (
     <>
@@ -43,7 +29,10 @@ const LogPage = () => {
         Activity Log
       </Typography>
       <Button onClick={() => dispatch(listActivities())} variant="contained">Refresh</Button>
-      {elem}
+      <List>
+        {renderedActivities}
+      </List>
+      <Typography>{message}</Typography>
     </>
   );
 };

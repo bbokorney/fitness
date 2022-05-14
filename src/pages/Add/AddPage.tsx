@@ -2,30 +2,45 @@ import React, { useState } from "react";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import { useAppSelector, useAppDispatch } from "../../app/hooks";
 import {
-  collection, addDoc,
-} from "firebase/firestore";
-import getDB from "../../lib/firebase";
-
-const db = getDB();
+  selectActivites,
+  upsertActivity,
+  clearLoadingState,
+} from "../../features/activities/activitiesSlice";
 
 const AddPage = () => {
+  const dispatch = useAppDispatch();
+  const { status, errorMessage } = useAppSelector(selectActivites);
+
   const [distance, setDistance] = useState("");
+  const [distanceError, setDistanceError] = useState("");
+
   const onDistanceInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const parsed = parseFloat(e.target.value);
+    if (Number.isNaN(parsed)) {
+      setDistanceError("Distance must be a number");
+    } else {
+      setDistanceError("");
+    }
     setDistance(e.target.value);
   };
 
   const onClickSave = async () => {
-    try {
-      const parsed = parseFloat(distance);
-      const docRef = await addDoc(collection(db, "activities"), {
-        distance: parsed,
-      });
-      console.log("Document written with ID: ", docRef.id);
-    } catch (e) {
-      console.error("Error adding document: ", e);
+    if (distanceError !== "") {
+      return;
     }
+    const parsed = parseFloat(distance);
+    dispatch(upsertActivity({ distance: parsed }));
   };
+
+  let message;
+  if (status === "loading") {
+    message = "Saving...";
+  } else if (status === "failed") {
+    message = `Error saving activity: ${errorMessage}`;
+    setTimeout(() => dispatch(clearLoadingState()), 2000);
+  }
 
   return (
     <>
@@ -34,14 +49,20 @@ const AddPage = () => {
       </Typography>
 
       <TextField
-        id="outlined-basic"
+        id="distance"
+        error={distanceError !== ""}
+        inputProps={{ inputMode: "numeric" }}
         label="Distance"
         variant="outlined"
         value={distance}
         onChange={onDistanceInputChange}
+        helperText={distanceError}
       />
 
       <Button onClick={onClickSave} variant="contained">Save</Button>
+      <Typography>
+        {message}
+      </Typography>
     </>
   );
 };
