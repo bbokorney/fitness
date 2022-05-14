@@ -40,11 +40,17 @@ export const activitiesSlice = createSlice({
         state.status = "idle";
         state.activities = action.payload;
       })
+      .addCase(listActivities.rejected, (state) => {
+        state.status = "idle";
+      })
 
       .addCase(upsertActivity.pending, (state) => {
         state.status = "loading";
       })
       .addCase(upsertActivity.fulfilled, (state) => {
+        state.status = "idle";
+      })
+      .addCase(upsertActivity.rejected, (state) => {
         state.status = "idle";
       });
   },
