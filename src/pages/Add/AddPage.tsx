@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import CircularProgress from "@mui/material/CircularProgress";
 import { useAppSelector, useAppDispatch } from "../../app/hooks";
 import {
   selectActivites,
@@ -47,11 +48,6 @@ const AddPage = () => {
     }
   };
 
-  let message;
-  if (status === "loading") {
-    message = "Saving...";
-  }
-
   return (
     <>
       <Typography variant="h6">
@@ -70,9 +66,9 @@ const AddPage = () => {
       />
 
       <Button onClick={onClickSave} variant="contained">Save</Button>
-      <Typography>
-        {message}
-      </Typography>
+
+      {status === "loading" && <CircularProgress />}
+
     </>
   );
 };

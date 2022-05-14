@@ -3,6 +3,7 @@ import Button from "@mui/material/Button";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
+import CircularProgress from "@mui/material/CircularProgress";
 import {
   selectActivites,
   listActivities,
@@ -14,11 +15,8 @@ const LogPage = () => {
   const dispatch = useAppDispatch();
   const { status, activities } = useAppSelector(selectActivites);
 
-  let message;
   let renderedActivities;
-  if (status === "loading") {
-    message = "Loading...";
-  } else if (status === "idle") {
+  if (status === "idle") {
     renderedActivities = activities.map((a) => (
       <ListItem key={a.id}>
         <ListItemText>{a.distance} miles!</ListItemText>
@@ -46,11 +44,14 @@ const LogPage = () => {
       <Typography variant="h6">
         Activity Log
       </Typography>
+
       <Button onClick={onClickRefresh} variant="contained">Refresh</Button>
+
+      {status === "loading" && <CircularProgress />}
+
       <List>
         {renderedActivities}
       </List>
-      <Typography>{message}</Typography>
     </>
   );
 };
