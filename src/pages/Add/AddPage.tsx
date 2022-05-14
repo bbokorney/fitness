@@ -6,7 +6,6 @@ import { useAppSelector, useAppDispatch } from "../../app/hooks";
 import {
   selectActivites,
   upsertActivity,
-  clearLoadingState,
 } from "../../features/activities/activitiesSlice";
 
 const AddPage = () => {
@@ -39,7 +38,6 @@ const AddPage = () => {
     message = "Saving...";
   } else if (status === "failed") {
     message = `Error saving activity: ${errorMessage}`;
-    setTimeout(() => dispatch(clearLoadingState()), 2000);
   }
 
   return (

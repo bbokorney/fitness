@@ -14,6 +14,7 @@ import LogPage from "./pages/Log/LogPage";
 import StatsPage from "./pages/Stats/StatsPage";
 import Counter from "./features/counter/Counter";
 import TopBar from "./layout/TopBar";
+import AlertComponent from "./components/alert/AlertComponent";
 
 const App = () => {
   const [value, setValue] = useState("");
@@ -57,6 +58,7 @@ const App = () => {
             </BottomNavigation>
           </Paper>
         </BrowserRouter>
+        <AlertComponent />
       </Container>
     </>
   );
