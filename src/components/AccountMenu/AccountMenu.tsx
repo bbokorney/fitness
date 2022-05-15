@@ -75,10 +75,7 @@ const AccountMenu = () => {
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-        <MenuItem>
-          <Avatar /> Profile
-        </MenuItem>
-        <MenuItem>
+        <MenuItem onClick={() => navigate("/account")}>
           <Avatar /> My account
         </MenuItem>
         <Divider />

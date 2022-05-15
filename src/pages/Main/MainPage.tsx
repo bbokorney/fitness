@@ -7,6 +7,7 @@ import AddPage from "../Add/AddPage";
 import LogPage from "../Log/LogPage";
 import StatsPage from "../Stats/StatsPage";
 import SettingsPage from "../Settings/SettingsPage";
+import AccountPage from "../Account/AccountPage";
 import Counter from "../../features/counter/Counter";
 
 const Main = () => (
@@ -18,6 +19,7 @@ const Main = () => (
         <Route path="/log" element={<LogPage />} />
         <Route path="/stats" element={<StatsPage />} />
         <Route path="/settings" element={<SettingsPage />} />
+        <Route path="/account" element={<AccountPage />} />
         <Route path="/counter" element={<Counter />} />
       </Routes>
       <BottomNavBar />
