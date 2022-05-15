@@ -16,9 +16,7 @@ const firebaseConfig = {
 let db: Firestore;
 
 export default function getDB() {
-  console.log("firebase getDB");
   if (db == null) {
-    console.log("firebase init");
     initializeApp(firebaseConfig);
     db = getFirestore();
   }
