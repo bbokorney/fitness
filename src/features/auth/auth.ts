@@ -27,7 +27,9 @@ export const signUserIn = () => {
 };
 
 export const signUserOut = () => {
-  signOut(auth).catch((error) => {
-    console.log("Sign-out error:", error);
-  });
+  signOut(auth)
+    .then(() => window.location.reload())
+    .catch((error) => {
+      console.log("Sign-out error:", error);
+    });
 };
