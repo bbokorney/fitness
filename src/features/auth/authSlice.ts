@@ -4,10 +4,12 @@ import { User } from "./user";
 
 export interface AuthState {
   user: User | null
+  status: "initialized" | "loading";
 }
 
 const initialState: AuthState = {
   user: null,
+  status: "loading",
 };
 
 export const authSlice = createSlice({
@@ -16,6 +18,7 @@ export const authSlice = createSlice({
   reducers: {
     updateUser: (state, action: PayloadAction<User | null>) => {
       state.user = action.payload;
+      state.status = "initialized";
     },
   },
 });
