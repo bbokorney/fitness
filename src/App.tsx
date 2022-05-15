@@ -1,8 +1,8 @@
 import "./features/auth/auth";
 import { useAppSelector } from "./app/hooks";
 import { selectAuth } from "./features/auth/authSlice";
-import Main from "./pages/Main/MainPage";
-import Login from "./pages/Login/LoginPage";
+import Main from "./pages/main/MainPage";
+import Login from "./pages/login/LoginPage";
 
 const App = () => {
   const { user } = useAppSelector(selectAuth);

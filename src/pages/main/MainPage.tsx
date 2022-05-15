@@ -3,11 +3,11 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import TopBar from "../../layout/TopBar";
 import Alert from "../../features/alert/Alert";
 import BottomNavBar from "../../layout/BottomNavBar";
-import AddPage from "../Add/AddPage";
-import LogPage from "../Log/LogPage";
-import StatsPage from "../Stats/StatsPage";
-import SettingsPage from "../Settings/SettingsPage";
-import AccountPage from "../Account/AccountPage";
+import AddPage from "../add/AddPage";
+import LogPage from "../activities/LogPage";
+import StatsPage from "../stats/StatsPage";
+import SettingsPage from "../settings/SettingsPage";
+import AccountPage from "../account/AccountPage";
 import Counter from "../../features/counter/Counter";
 
 const Main = () => (
