@@ -6,7 +6,16 @@ import AccountMenu from "../components/AccountMenu/AccountMenu";
 const TopBar = () => (
   <AppBar position="static">
     <Toolbar>
-      <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+      <Typography
+        variant="h4"
+        component="div"
+        sx={{
+          flexGrow: 1,
+          fontWeight: "bold",
+          fontStyle: "italic",
+          fontSize: "2rem",
+        }}
+      >
         Fitness
       </Typography>
       <AccountMenu />

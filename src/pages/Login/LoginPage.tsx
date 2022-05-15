@@ -1,4 +1,5 @@
 import Container from "@mui/material/Container";
+import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import CircularProgress from "@mui/material/CircularProgress";
@@ -7,11 +8,8 @@ import { selectAuth } from "../../features/auth/authSlice";
 import { signUserIn } from "../../features/auth/auth";
 
 const Login = () => {
-  const { user, status } = useAppSelector(selectAuth);
-  const loggedIn = (user == null);
+  const { status } = useAppSelector(selectAuth);
   const initialized = status === "initialized";
-
-  const message = loggedIn ? "Not logged in" : "Logged in!";
 
   const onLoginClick = () => {
     signUserIn();
@@ -21,17 +19,44 @@ const Login = () => {
   if (initialized) {
     elem = (
       <>
-        <Typography>{message}</Typography>
-        <Button onClick={onLoginClick} variant="contained">Log In</Button>
+        <Typography
+          variant="h4"
+          sx={{
+            fontWeight: "bold",
+            fontStyle: "italic",
+          }}
+        >
+          Fitness
+        </Typography>
+        <Typography>
+          Sign in and get moving!
+        </Typography>
+        <Button onClick={onLoginClick} variant="contained">Sign in with Google</Button>
       </>
     );
   } else {
-    elem = <CircularProgress />;
+    elem = (
+      <>
+        <Typography variant="body1">Loading up the good stuff!</Typography>
+        <CircularProgress />
+      </>
+    );
   }
 
   return (
     <Container>
-      {elem}
+      <Box
+        sx={{
+          height: "100vh",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: 2,
+        }}
+      >
+        {elem}
+      </Box>
     </Container>
   );
 };
