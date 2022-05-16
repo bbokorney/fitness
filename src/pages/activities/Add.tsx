@@ -3,12 +3,12 @@ import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import CircularProgress from "@mui/material/CircularProgress";
-import { useAppSelector, useAppDispatch } from "../../app/hooks";
+import { useAppSelector, useAppDispatch } from "../../lib/store/hooks";
 import {
   selectActivites,
   upsertActivity,
-} from "../../features/activities/activitiesSlice";
-import { alertError, alertInfo } from "../../features/alert/alertSlice";
+} from "../../lib/activities/activitiesSlice";
+import { alertError, alertInfo } from "../../lib/alert/alertSlice";
 
 const AddActivityForm = () => {
   const dispatch = useAppDispatch();

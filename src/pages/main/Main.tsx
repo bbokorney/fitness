@@ -1,14 +1,14 @@
 import Container from "@mui/material/Container";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import TopBar from "../../layout/TopBar";
-import Alert from "../../features/alert/Alert";
-import BottomNavBar from "../../layout/BottomNavBar";
+import TopBar from "../../ui/layout/TopBar";
+import Alert from "../../ui/alert/Alert";
+import BottomNavBar from "../../ui/layout/BottomNavBar";
 import AddActivityForm from "../activities/Add";
 import ActivitesList from "../activities/List";
 import ActivitiesStats from "../activities/Stats";
 import Settings from "../settings/Settings";
 import Account from "../account/Account";
-import Counter from "../../features/counter/Counter";
+import Counter from "../../ui/counter/Counter";
 
 const Main = () => (
   <BrowserRouter>

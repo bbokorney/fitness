@@ -6,7 +6,7 @@ import {
   GoogleAuthProvider,
 } from "firebase/auth";
 import { updateUser } from "./authSlice";
-import { store } from "../../app/store";
+import { store } from "../store/store";
 
 const { dispatch } = store;
 

@@ -3,9 +3,9 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import CircularProgress from "@mui/material/CircularProgress";
-import { useAppSelector } from "../../app/hooks";
-import { selectAuth } from "../../features/auth/authSlice";
-import { signUserIn } from "../../features/auth/auth";
+import { useAppSelector } from "../../lib/store/hooks";
+import { selectAuth } from "../../lib/auth/authSlice";
+import { signUserIn } from "../../lib/auth/auth";
 
 const Login = () => {
   const { status } = useAppSelector(selectAuth);

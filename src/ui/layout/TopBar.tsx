@@ -1,7 +1,7 @@
 import Typography from "@mui/material/Typography";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
-import AccountMenu from "../components/AccountMenu/AccountMenu";
+import AccountMenu from "../account/AccountMenu";
 
 const TopBar = () => (
   <AppBar position="static">

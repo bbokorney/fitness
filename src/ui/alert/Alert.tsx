@@ -1,7 +1,7 @@
 import { SyntheticEvent } from "react";
 import Snackbar from "@mui/material/Snackbar";
-import { useAppSelector, useAppDispatch } from "../../app/hooks";
-import { selectAlert, clearAlertState } from "./alertSlice";
+import { useAppSelector, useAppDispatch } from "../../lib/store/hooks";
+import { selectAlert, clearAlertState } from "../../lib/alert/alertSlice";
 
 const Alert = () => {
   const dispatch = useAppDispatch();

@@ -1,6 +1,6 @@
 import Typography from "@mui/material/Typography";
-import { useAppSelector } from "../../app/hooks";
-import { selectAuth } from "../../features/auth/authSlice";
+import { useAppSelector } from "../../lib/store/hooks";
+import { selectAuth } from "../../lib/auth/authSlice";
 
 const Account = () => {
   const { user } = useAppSelector(selectAuth);

@@ -10,9 +10,9 @@ import {
 } from "react-router-dom";
 import { Settings, Logout } from "@mui/icons-material";
 import CachedIcon from "@mui/icons-material/Cached";
-import { useAppSelector } from "../../app/hooks";
-import { selectAuth } from "../../features/auth/authSlice";
-import { signUserOut } from "../../features/auth/auth";
+import { useAppSelector } from "../../lib/store/hooks";
+import { selectAuth } from "../../lib/auth/authSlice";
+import { signUserOut } from "../../lib/auth/auth";
 
 const AccountMenu = () => {
   const navigate = useNavigate();

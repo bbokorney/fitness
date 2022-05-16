@@ -7,9 +7,9 @@ import CircularProgress from "@mui/material/CircularProgress";
 import {
   selectActivites,
   listActivities,
-} from "../../features/activities/activitiesSlice";
-import { useAppSelector, useAppDispatch } from "../../app/hooks";
-import { alertError } from "../../features/alert/alertSlice";
+} from "../../lib/activities/activitiesSlice";
+import { useAppSelector, useAppDispatch } from "../../lib/store/hooks";
+import { alertError } from "../../lib/alert/alertSlice";
 
 const ActivitiesList = () => {
   const dispatch = useAppDispatch();
