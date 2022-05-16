@@ -11,7 +11,7 @@ import {
 import { useAppSelector, useAppDispatch } from "../../app/hooks";
 import { alertError } from "../../features/alert/alertSlice";
 
-const LogPage = () => {
+const ActivitiesList = () => {
   const dispatch = useAppDispatch();
   const { status, activities } = useAppSelector(selectActivites);
 
@@ -56,4 +56,4 @@ const LogPage = () => {
   );
 };
 
-export default LogPage;
+export default ActivitiesList;
