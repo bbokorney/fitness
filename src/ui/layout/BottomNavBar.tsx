@@ -31,7 +31,7 @@ const BottomNavBar = () => {
         />
         <BottomNavigationAction
           label="Activities"
-          value="/activties/list"
+          value="/activities/list"
           icon={<ViewListIcon />}
           component={RouterLink}
           to="/activities/list"
