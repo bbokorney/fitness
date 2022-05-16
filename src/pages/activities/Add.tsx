@@ -3,6 +3,7 @@ import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import CircularProgress from "@mui/material/CircularProgress";
+import { useParams } from "react-router-dom";
 import { useAppSelector, useAppDispatch } from "../../lib/store/hooks";
 import {
   selectActivites,
@@ -13,6 +14,8 @@ import { alertError, alertInfo } from "../../lib/alert/alertSlice";
 const AddActivityForm = () => {
   const dispatch = useAppDispatch();
   const { status } = useAppSelector(selectActivites);
+  const { activityType } = useParams();
+  console.log("activityType", activityType);
 
   const [distance, setDistance] = useState("");
   const [distanceError, setDistanceError] = useState("");

@@ -18,9 +18,13 @@ const Main = () => (
     <Container>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/activities/add" element={<AddActivityForm />} />
-        <Route path="/activities/list" element={<ActivitesList />} />
-        <Route path="/activities/stats" element={<ActivitiesStats />} />
+        <Route path="/activities">
+          <Route path="add">
+            <Route path=":activityType" element={<AddActivityForm />} />
+          </Route>
+          <Route path="list" element={<ActivitesList />} />
+          <Route path="stats" element={<ActivitiesStats />} />
+        </Route>
         <Route path="/settings" element={<Settings />} />
         <Route path="/account" element={<Account />} />
         <Route path="/counter" element={<Counter />} />

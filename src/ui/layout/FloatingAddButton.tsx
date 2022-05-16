@@ -51,9 +51,9 @@ const ActivityTypeMenu = () => {
           horizontal: "right",
         }}
       >
-        <MenuItem onClick={() => handleClose("/activities/add")}>Core</MenuItem>
-        <MenuItem onClick={() => handleClose("/activities/add")}>Strength + antagonist</MenuItem>
-        <MenuItem onClick={() => handleClose("/activities/add")}>Day hike</MenuItem>
+        <MenuItem onClick={() => handleClose("/activities/add/strength")}>Strength</MenuItem>
+        <MenuItem onClick={() => handleClose("/activities/add/bike")}>Bike</MenuItem>
+        <MenuItem onClick={() => handleClose("/activities/add/day-hike")}>Day hike</MenuItem>
       </Menu>
     </>
   );
