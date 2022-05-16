@@ -9,6 +9,7 @@ import ActivitiesStats from "../activities/Stats";
 import Settings from "../settings/Settings";
 import Account from "../account/Account";
 import Counter from "../../ui/counter/Counter";
+import FloatingAddButton from "../../ui/layout/FloatingAddButton";
 import Home from "../home/Home";
 
 const Main = () => (
@@ -24,6 +25,7 @@ const Main = () => (
         <Route path="/account" element={<Account />} />
         <Route path="/counter" element={<Counter />} />
       </Routes>
+      <FloatingAddButton />
       <BottomNavBar />
       <Alert />
     </Container>
