@@ -9,15 +9,17 @@ import ActivitiesStats from "../activities/Stats";
 import Settings from "../settings/Settings";
 import Account from "../account/Account";
 import Counter from "../../ui/counter/Counter";
+import Home from "../home/Home";
 
 const Main = () => (
   <BrowserRouter>
     <TopBar />
     <Container>
       <Routes>
-        <Route path="/" element={<AddActivityForm />} />
-        <Route path="/log" element={<ActivitesList />} />
-        <Route path="/stats" element={<ActivitiesStats />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/activities/add" element={<AddActivityForm />} />
+        <Route path="/activities/list" element={<ActivitesList />} />
+        <Route path="/activities/stats" element={<ActivitiesStats />} />
         <Route path="/settings" element={<Settings />} />
         <Route path="/account" element={<Account />} />
         <Route path="/counter" element={<Counter />} />

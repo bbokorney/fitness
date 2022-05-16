@@ -4,7 +4,7 @@ import {
 } from "react-router-dom";
 import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
-import AddIcon from "@mui/icons-material/Add";
+import HomeIcon from "@mui/icons-material/Home";
 import ViewListIcon from "@mui/icons-material/ViewList";
 import BarChartIcon from "@mui/icons-material/BarChart";
 import Paper from "@mui/material/Paper";
@@ -19,29 +19,29 @@ const BottomNavBar = () => {
       elevation={3}
     >
       <BottomNavigation
-        showLabels={false}
+        showLabels
         value={location.pathname}
       >
         <BottomNavigationAction
-          label="Add"
+          label="Home"
           value="/"
-          icon={<AddIcon />}
+          icon={<HomeIcon />}
           component={RouterLink}
           to="/"
         />
         <BottomNavigationAction
-          label="Log"
-          value="/log"
+          label="Activities"
+          value="/activties/list"
           icon={<ViewListIcon />}
           component={RouterLink}
-          to="/log"
+          to="/activities/list"
         />
         <BottomNavigationAction
           label="Stats"
-          value="/stats"
+          value="/activities/stats"
           icon={<BarChartIcon />}
           component={RouterLink}
-          to="/stats"
+          to="/activities/stats"
         />
         <BottomNavigationAction
           label="Counter"
