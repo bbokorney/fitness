@@ -1,9 +1,9 @@
 import Typography from "@mui/material/Typography";
 
-const StatsPage = () => (
+const ActivitiesStats = () => (
   <Typography variant="h6">
     Stats
   </Typography>
 );
 
-export default StatsPage;
+export default ActivitiesStats;

@@ -10,7 +10,7 @@ import {
 } from "../../features/activities/activitiesSlice";
 import { alertError, alertInfo } from "../../features/alert/alertSlice";
 
-const AddPage = () => {
+const AddActivityForm = () => {
   const dispatch = useAppDispatch();
   const { status } = useAppSelector(selectActivites);
 
@@ -73,4 +73,4 @@ const AddPage = () => {
   );
 };
 
-export default AddPage;
+export default AddActivityForm;

@@ -3,11 +3,11 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import TopBar from "../../layout/TopBar";
 import Alert from "../../features/alert/Alert";
 import BottomNavBar from "../../layout/BottomNavBar";
-import AddPage from "../activities/Add";
-import LogPage from "../activities/List";
-import StatsPage from "../activities/Stats";
-import SettingsPage from "../settings/Settings";
-import AccountPage from "../account/Account";
+import AddActivityForm from "../activities/Add";
+import ActivitesList from "../activities/List";
+import ActivitiesStats from "../activities/Stats";
+import Settings from "../settings/Settings";
+import Account from "../account/Account";
 import Counter from "../../features/counter/Counter";
 
 const Main = () => (
@@ -15,11 +15,11 @@ const Main = () => (
     <TopBar />
     <Container>
       <Routes>
-        <Route path="/" element={<AddPage />} />
-        <Route path="/log" element={<LogPage />} />
-        <Route path="/stats" element={<StatsPage />} />
-        <Route path="/settings" element={<SettingsPage />} />
-        <Route path="/account" element={<AccountPage />} />
+        <Route path="/" element={<AddActivityForm />} />
+        <Route path="/log" element={<ActivitesList />} />
+        <Route path="/stats" element={<ActivitiesStats />} />
+        <Route path="/settings" element={<Settings />} />
+        <Route path="/account" element={<Account />} />
         <Route path="/counter" element={<Counter />} />
       </Routes>
       <BottomNavBar />

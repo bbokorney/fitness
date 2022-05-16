@@ -2,7 +2,7 @@ import Typography from "@mui/material/Typography";
 import { useAppSelector } from "../../app/hooks";
 import { selectAuth } from "../../features/auth/authSlice";
 
-const AccountPage = () => {
+const Account = () => {
   const { user } = useAppSelector(selectAuth);
   return (
     <>
@@ -16,4 +16,4 @@ const AccountPage = () => {
   );
 };
 
-export default AccountPage;
+export default Account;

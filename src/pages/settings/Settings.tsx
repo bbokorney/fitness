@@ -1,6 +1,6 @@
 import Typography from "@mui/material/Typography";
 
-const SettingsPage = () => (
+const Settings = () => (
   <>
     <Typography variant="h6">
       Settings
@@ -11,4 +11,4 @@ const SettingsPage = () => (
     </Typography>
   </>
 );
-export default SettingsPage;
+export default Settings;
