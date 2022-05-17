@@ -5,7 +5,7 @@ import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import CircularProgress from "@mui/material/CircularProgress";
 import {
-  selectActivites,
+  selectActivitiesList,
   listActivities,
 } from "../../lib/activities/activitiesSlice";
 import { useAppSelector, useAppDispatch } from "../../lib/store/hooks";
@@ -13,7 +13,7 @@ import { alertError } from "../../lib/alert/alertSlice";
 
 const ActivitiesList = () => {
   const dispatch = useAppDispatch();
-  const { status, activities } = useAppSelector(selectActivites);
+  const { status, activities } = useAppSelector(selectActivitiesList);
 
   let renderedActivities;
   if (status === "idle") {

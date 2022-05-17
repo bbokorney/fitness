@@ -1,20 +1,34 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store/store";
 import { Activity } from "./models";
 import ActivitiesAPI from "./activitiesAPI";
 
 const api = new ActivitiesAPI();
 
+type ActivityFormState = "idle" | "loading" | "valid" | "invalid";
+
 export interface ActivitiesState {
-  activities: Activity[];
-  status: "idle" | "loading";
-  errorMessage: string;
+  list: {
+    activities: Activity[];
+    status: "idle" | "loading";
+    errorMessage: string;
+  }
+  form: {
+    status: ActivityFormState;
+    activity: Activity;
+  }
 }
 
 const initialState: ActivitiesState = {
-  activities: [],
-  status: "idle",
-  errorMessage: "",
+  list: {
+    activities: [],
+    status: "idle",
+    errorMessage: "",
+  },
+  form: {
+    status: "invalid",
+    activity: {},
+  },
 };
 
 export const listActivities = createAsyncThunk(
@@ -30,32 +44,46 @@ export const upsertActivity = createAsyncThunk(
 export const activitiesSlice = createSlice({
   name: "activities",
   initialState,
-  reducers: { },
+  reducers: {
+    updateFormActivity: (state, action: PayloadAction<Activity>) => {
+      state.form.activity = action.payload;
+    },
+    updateFormStatus: (state, action: PayloadAction<ActivityFormState>) => {
+      state.form.status = action.payload;
+    },
+    clearFormActivity: (state) => {
+      state.form.activity = {};
+      state.form.status = "invalid";
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(listActivities.pending, (state) => {
-        state.status = "loading";
+        state.list.status = "loading";
       })
       .addCase(listActivities.fulfilled, (state, action) => {
-        state.status = "idle";
-        state.activities = action.payload;
+        state.list.status = "idle";
+        state.list.activities = action.payload;
       })
       .addCase(listActivities.rejected, (state) => {
-        state.status = "idle";
+        state.list.status = "idle";
       })
 
       .addCase(upsertActivity.pending, (state) => {
-        state.status = "loading";
+        state.form.status = "loading";
       })
       .addCase(upsertActivity.fulfilled, (state) => {
-        state.status = "idle";
+        state.form.status = "idle";
       })
       .addCase(upsertActivity.rejected, (state) => {
-        state.status = "idle";
+        state.form.status = "idle";
       });
   },
 });
 
-export const selectActivites = (state: RootState) => state.activities;
+export const { updateFormActivity, updateFormStatus, clearFormActivity } = activitiesSlice.actions;
+
+export const selectActivitiesList = (state: RootState) => state.activities.list;
+export const selectActivitiesForm = (state: RootState) => state.activities.form;
 
 export default activitiesSlice.reducer;
