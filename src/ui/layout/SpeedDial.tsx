@@ -9,9 +9,21 @@ import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
 import { useNavigate } from "react-router-dom";
 
 const actions = [
-  { icon: <FitnessCenterIcon />, name: "Strength", destination: "/activities/add/strength" },
-  { icon: <HikingIcon />, name: "Hike", destination: "/activities/add/day-hike" },
-  { icon: <DirectionsBikeIcon />, name: "Bike", destination: "/activities/add/bike" },
+  {
+    icon: <FitnessCenterIcon />,
+    name: "Strength",
+    destination: "/activities/add/strength",
+  },
+  {
+    icon: <HikingIcon />,
+    name: "Hike",
+    destination: "/activities/add/day-hike",
+  },
+  {
+    icon: <DirectionsBikeIcon />,
+    name: "Bike",
+    destination: "/activities/add/bike",
+  },
 ];
 
 const SpeedDial = () => {
@@ -27,23 +39,26 @@ const SpeedDial = () => {
   };
 
   return (
-    <Box sx={{
-      position: "fixed",
-      bottom: "70px",
-      right: "15px",
-      transform: "translateZ(0px)",
-      flexGrow: 1,
-    }}
+    <Box
+      sx={{
+        position: "fixed",
+        bottom: "70px",
+        right: "15px",
+        transform: "translateZ(0px)",
+        flexGrow: 1,
+      }}
     >
       <MDSpeedDial
+        FabProps={{ color: "secondary" }}
         open={open}
         onClose={handleClose}
         onOpen={handleOpen}
-        ariaLabel="SpeedDial basic example"
+        ariaLabel="SpeedDial"
         icon={<SpeedDialIcon />}
       >
         {actions.map((action) => (
           <SpeedDialAction
+            sx={{ bgcolor: "secondary.main" }}
             key={action.name}
             icon={action.icon}
             tooltipTitle={action.name}

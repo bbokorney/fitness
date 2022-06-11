@@ -2,8 +2,10 @@ import React from "react";
 import { createRoot } from "react-dom/client";
 import CssBaseline from "@mui/material/CssBaseline";
 import { Provider } from "react-redux";
+import { ThemeProvider } from "@mui/material/styles";
 import { store } from "./lib/store/store";
 import App from "./App";
+import theme from "./ui/theme/theme";
 import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
@@ -15,7 +17,9 @@ root.render(
   <React.StrictMode>
     <CssBaseline />
     <Provider store={store}>
-      <App />
+      <ThemeProvider theme={theme}>
+        <App />
+      </ThemeProvider>
     </Provider>
   </React.StrictMode>,
 );

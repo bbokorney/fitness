@@ -38,7 +38,12 @@ const AccountMenu = () => {
       <IconButton
         onClick={onAvatarClick}
       >
-        <Avatar sx={{ width: 32, height: 32 }}>{avatarLetter}</Avatar>
+        <Avatar
+          sx={{
+            width: 32, height: 32, color: "secondary.contrastText", bgcolor: "secondary.main",
+          }}
+        >{avatarLetter}
+        </Avatar>
       </IconButton>
       <Menu
         anchorEl={anchorEl}
@@ -76,7 +81,7 @@ const AccountMenu = () => {
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
         <MenuItem onClick={() => navigate("/account")}>
-          <Avatar /> My account
+          <Avatar sx={{ color: "secondary.contrastText", bgcolor: "secondary.main" }} /> My account
         </MenuItem>
         <Divider />
         <MenuItem onClick={() => navigate("/settings")}>
