@@ -40,7 +40,7 @@ const AccountMenu = () => {
       >
         <Avatar
           sx={{
-            width: 32, height: 32, color: "secondary.contrastText", bgcolor: "secondary.main",
+            width: 32, height: 32, color: "primary.dark", bgcolor: "secondary.main",
           }}
         >{avatarLetter}
         </Avatar>

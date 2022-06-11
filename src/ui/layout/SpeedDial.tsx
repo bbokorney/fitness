@@ -49,7 +49,7 @@ const SpeedDial = () => {
       }}
     >
       <MDSpeedDial
-        FabProps={{ color: "secondary" }}
+        FabProps={{ color: "secondary", sx: { color: "primary.main" } }}
         open={open}
         onClose={handleClose}
         onOpen={handleOpen}
@@ -58,7 +58,7 @@ const SpeedDial = () => {
       >
         {actions.map((action) => (
           <SpeedDialAction
-            sx={{ bgcolor: "secondary.main" }}
+            sx={{ color: "primary.main", bgcolor: "secondary.main" }}
             key={action.name}
             icon={action.icon}
             tooltipTitle={action.name}

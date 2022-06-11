@@ -24,6 +24,7 @@ const Login = () => {
           sx={{
             fontWeight: "bold",
             fontStyle: "italic",
+            color: "primary.main",
           }}
         >
           Fitness
