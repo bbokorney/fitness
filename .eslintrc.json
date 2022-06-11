@@ -77,7 +77,8 @@
     ],
     "react/react-in-jsx-scope": "off",
     "no-promise-executor-return": "off",
-    "no-param-reassign": "off"
+    "no-param-reassign": "off",
+    "@typescript-eslint/no-empty-function": "off"
   },
   "settings": {
     "react": {
