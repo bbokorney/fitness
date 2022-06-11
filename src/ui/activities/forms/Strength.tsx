@@ -18,14 +18,15 @@ import {
 import { Activity } from "../../../lib/activities/models";
 
 const validTypes = [
-  { displayName: "Core", value: "strength/core" },
-  { displayName: "Legs", value: "strength/legs" },
-  { displayName: "Stabilizer and antagonist", value: "strength/stablizer-antagonist" }];
+  { displayName: "Core", value: "core" },
+  { displayName: "Legs", value: "legs" },
+  { displayName: "Stabilizer and antagonist", value: "stablizer-antagonist" }];
 
 const StrengthForm = () => {
   const dispatch = useAppDispatch();
 
-  const { activity } = useAppSelector(selectActivitiesForm);
+  let { activity } = useAppSelector(selectActivitiesForm);
+  activity = { ...activity, type: "strength" };
 
   const [duration, setDuration] = useState("");
   const [durationError, setDurationError] = useState("");
@@ -35,8 +36,13 @@ const StrengthForm = () => {
   const [activityType, setActivityType] = React.useState("");
 
   const updateActivity = (a: Activity) => {
+    if (a.startTime === undefined || a.startTime === 0) {
+      a = { ...a, startTime: date?.getTime() };
+    }
     dispatch(updateFormActivity(a));
-    if (a.duration !== undefined && a.duration > 0 && a.type !== "") {
+    if (a.duration !== undefined && a.duration > 0
+      && a.type !== ""
+      && a.startTime !== undefined && a.startTime > 0) {
       dispatch(updateFormStatus("valid"));
     }
   };
@@ -44,7 +50,7 @@ const StrengthForm = () => {
   const onActivityTypeChange = (event: SelectChangeEvent) => {
     setActivityType(event.target.value);
     if (event.target.value !== "") {
-      updateActivity({ ...activity, type: event.target.value });
+      updateActivity({ ...activity, subType: event.target.value });
     }
   };
 
@@ -63,8 +69,11 @@ const StrengthForm = () => {
     }
   };
 
-  const onDateInputChange = (newValue: Date | null) => {
-    setDate(newValue);
+  const onDateInputChange = (selectedDate: Date | null) => {
+    setDate(selectedDate);
+    if (selectedDate) {
+      updateActivity({ ...activity, startTime: selectedDate.getUTCSeconds() });
+    }
   };
 
   return (

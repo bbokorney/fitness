@@ -5,7 +5,9 @@ import { Activity } from "./models";
 import getDB from "./firebase";
 
 export default class ActivitiesAPI {
-  collectionName = "activities";
+  collectionName = process.env.REACT_APP_ACTIVITIES_COLLECTION_NAME
+    ? process.env.REACT_APP_ACTIVITIES_COLLECTION_NAME
+    : "activities";
 
   db: Firestore = getDB();
 
