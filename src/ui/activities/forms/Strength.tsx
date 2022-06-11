@@ -6,6 +6,9 @@ import MenuItem from "@mui/material/MenuItem";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import InputLabel from "@mui/material/InputLabel";
 import Stack from "@mui/material/Stack";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { MobileDatePicker } from "@mui/x-date-pickers/MobileDatePicker";
 import { useAppDispatch, useAppSelector } from "../../../lib/store/hooks";
 import {
   selectActivitiesForm,
@@ -26,6 +29,8 @@ const StrengthForm = () => {
 
   const [duration, setDuration] = useState("");
   const [durationError, setDurationError] = useState("");
+
+  const [date, setDate] = useState<Date | null>(new Date());
 
   const [activityType, setActivityType] = React.useState("");
 
@@ -58,8 +63,12 @@ const StrengthForm = () => {
     }
   };
 
+  const onDateInputChange = (newValue: Date | null) => {
+    setDate(newValue);
+  };
+
   return (
-    <Stack>
+    <Stack sx={{ mt: 1 }}>
       <FormControl sx={{ m: 1, minWidth: 120 }}>
         <InputLabel id="demo-simple-select-helper-label">Activity type</InputLabel>
         <Select
@@ -84,6 +93,18 @@ const StrengthForm = () => {
           helperText={durationError}
         />
         <FormHelperText>minutes</FormHelperText>
+      </FormControl>
+      <FormControl sx={{ m: 1, minWidth: 120 }}>
+        <LocalizationProvider dateAdapter={AdapterDateFns}>
+          <MobileDatePicker
+            label="Date"
+            inputFormat="MM/dd/yyyy"
+            value={date}
+            onChange={onDateInputChange}
+            // eslint-disable-next-line react/jsx-props-no-spreading
+            renderInput={(params) => <TextField {...params} />}
+          />
+        </LocalizationProvider>
       </FormControl>
     </Stack>
   );
