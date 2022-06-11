@@ -43,13 +43,6 @@ const BottomNavBar = () => {
           component={RouterLink}
           to="/activities/stats"
         />
-        <BottomNavigationAction
-          label="Counter"
-          value="/counter"
-          icon={<BarChartIcon />}
-          component={RouterLink}
-          to="/counter"
-        />
       </BottomNavigation>
     </Paper>
   );
