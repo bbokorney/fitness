@@ -16,6 +16,7 @@ export default class ActivitiesAPI {
   };
 
   upsert = async (a: Activity): Promise<Activity> => {
+    a = { ...a, source: "app" };
     const docRef = await addDoc(collection(this.db, this.collectionName), a);
     return {
       id: docRef.id,
