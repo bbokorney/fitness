@@ -23,14 +23,23 @@ type FullScreenDialogProps = {
   title: string;
   saveButtonText?: string;
   saveButtonDisabled?: boolean;
+  onSave?: () => void;
   onClose?: () => void;
 }
 
 const FullScreenDialog: React.FC<FullScreenDialogProps> = ({
   children, open = false, title,
-  saveButtonText = "Save", saveButtonDisabled = true, onClose = () => {},
+  saveButtonText = "Save",
+  saveButtonDisabled = true,
+  onClose = () => {},
+  onSave = () => {},
 }) => {
   const handleClose = () => {
+    onClose();
+  };
+
+  const handleSave = () => {
+    onSave();
     onClose();
   };
 
@@ -55,7 +64,7 @@ const FullScreenDialog: React.FC<FullScreenDialogProps> = ({
             <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
               {title}
             </Typography>
-            <Button disabled={saveButtonDisabled} autoFocus color="inherit" onClick={handleClose}>
+            <Button disabled={saveButtonDisabled} autoFocus color="inherit" onClick={handleSave}>
               {saveButtonText}
             </Button>
           </Toolbar>

@@ -1,8 +1,4 @@
 import React from "react";
-import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
-import CircularProgress from "@mui/material/CircularProgress";
-import Stack from "@mui/material/Stack";
 import { useAppSelector, useAppDispatch } from "../../lib/store/hooks";
 import {
   selectActivitiesForm,
@@ -11,16 +7,22 @@ import {
 } from "../../lib/activities/activitiesSlice";
 import { alertError, alertInfo } from "../../lib/alert/alertSlice";
 import StrengthForm from "../../ui/activities/forms/Strength";
+import BikeForm from "../../ui/activities/forms/Bike";
+import DayHike from "../../ui/activities/forms/DayHike";
 import FullScreenDialog from "../../ui/dialog/FullScreen";
 
-const activityTypes = new Map();
-activityTypes.set("strength", <StrengthForm />);
-activityTypes.set("bike", <Typography>Bike</Typography>);
-activityTypes.set("day-hike", <Typography>Day Hike</Typography>);
-
-function validActivityType(activityType: string): boolean {
-  return activityTypes.has(activityType);
-}
+type activityTypesMap = {
+  [key: string]: {
+    title: string;
+    element: React.ReactNode;
+  };
+};
+const activityTypes: activityTypesMap = {
+  strength: { title: "Add strength workout", element: <StrengthForm /> },
+  bike: { title: "Add bike ride", element: <BikeForm /> },
+  "day-hike": { title: "Add hike", element: <DayHike /> },
+  "": { title: "", element: <div /> },
+};
 
 type ActivityFormProps = {
   open?: boolean;
@@ -31,10 +33,6 @@ type ActivityFormProps = {
 const ActivityForm: React.FC<ActivityFormProps> = ({
   open = false, onClose = () => {}, activityType,
 }) => {
-  if (open && !validActivityType(activityType || "")) {
-    return <Typography>Invalid activity type {activityType}</Typography>;
-  }
-
   const dispatch = useAppDispatch();
   const { status, activity } = useAppSelector(selectActivitiesForm);
 
@@ -62,26 +60,17 @@ const ActivityForm: React.FC<ActivityFormProps> = ({
     }
   };
 
+  const selectedActivityType = activityTypes[activityType];
+
   return (
     <FullScreenDialog
       open={open}
-      title="Add activity"
+      title={selectedActivityType.title}
       onClose={onDialogClose}
+      onSave={onClickSave}
+      saveButtonDisabled={status !== "valid"}
     >
-      <Stack>
-        {activityTypes.get(activityType)}
-        <Stack
-          direction="column"
-          justifyContent="center"
-          alignItems="center"
-          spacing={2}
-        >
-          <Button disabled={status !== "valid"} onClick={onClickSave} variant="contained">Save</Button>
-        </Stack>
-
-        {status === "loading" && <CircularProgress />}
-
-      </Stack>
+      {selectedActivityType.element}
     </FullScreenDialog>
   );
 };

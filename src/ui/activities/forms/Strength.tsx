@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
-import Typography from "@mui/material/Typography";
 import FormHelperText from "@mui/material/FormHelperText";
 import FormControl from "@mui/material/FormControl";
 import MenuItem from "@mui/material/MenuItem";
@@ -60,38 +59,33 @@ const StrengthForm = () => {
   };
 
   return (
-    <>
-      <Typography variant="h6" gutterBottom>
-        Add Strength Activity
-      </Typography>
-      <Stack>
-        <FormControl sx={{ m: 1, minWidth: 120 }}>
-          <InputLabel id="demo-simple-select-helper-label">Activity type</InputLabel>
-          <Select
-            labelId="demo-simple-select-helper-label"
-            id="demo-simple-select-helper"
-            value={activityType}
-            label="Activity type"
-            onChange={onActivityTypeChange}
-          >
-            {validTypes.map((t) => <MenuItem key={t.value} value={t.value}>{t.displayName}</MenuItem>)}
-          </Select>
-        </FormControl>
-        <FormControl sx={{ m: 1, minWidth: 120 }}>
-          <TextField
-            id="duration"
-            error={durationError !== ""}
-            inputProps={{ inputMode: "numeric" }}
-            label="Duration"
-            variant="outlined"
-            value={duration}
-            onChange={onDurationInputChange}
-            helperText={durationError}
-          />
-          <FormHelperText>minutes</FormHelperText>
-        </FormControl>
-      </Stack>
-    </>
+    <Stack>
+      <FormControl sx={{ m: 1, minWidth: 120 }}>
+        <InputLabel id="demo-simple-select-helper-label">Activity type</InputLabel>
+        <Select
+          labelId="demo-simple-select-helper-label"
+          id="demo-simple-select-helper"
+          value={activityType}
+          label="Workout type"
+          onChange={onActivityTypeChange}
+        >
+          {validTypes.map((t) => <MenuItem key={t.value} value={t.value}>{t.displayName}</MenuItem>)}
+        </Select>
+      </FormControl>
+      <FormControl sx={{ m: 1, minWidth: 120 }}>
+        <TextField
+          id="duration"
+          error={durationError !== ""}
+          inputProps={{ inputMode: "numeric" }}
+          label="Duration"
+          variant="outlined"
+          value={duration}
+          onChange={onDurationInputChange}
+          helperText={durationError}
+        />
+        <FormHelperText>minutes</FormHelperText>
+      </FormControl>
+    </Stack>
   );
 };
 export default StrengthForm;
