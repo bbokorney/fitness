@@ -7,4 +7,5 @@ export interface Activity {
   distance?: number;
   elevation?: number;
   startTime?: number;
+  notes?: string;
 }

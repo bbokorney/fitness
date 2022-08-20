@@ -33,6 +33,8 @@ const StrengthForm = () => {
 
   const [date, setDate] = useState<Date | null>(new Date());
 
+  const [notes, setNotes] = useState("");
+
   const [activityType, setActivityType] = React.useState("");
 
   const updateActivity = (a: Activity) => {
@@ -76,6 +78,14 @@ const StrengthForm = () => {
     }
   };
 
+  const onNotesInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const notesField = event.target.value;
+    setNotes(notesField);
+    if (notesField) {
+      updateActivity({ ...activity, notes: notesField });
+    }
+  };
+
   return (
     <Stack sx={{ mt: 1 }}>
       <FormControl sx={{ m: 1, minWidth: 120 }}>
@@ -114,6 +124,15 @@ const StrengthForm = () => {
             renderInput={(params) => <TextField {...params} />}
           />
         </LocalizationProvider>
+      </FormControl>
+      <FormControl sx={{ m: 1, minWidth: 120 }}>
+        <TextField
+          label="Notes"
+          multiline
+          maxRows={4}
+          value={notes}
+          onChange={onNotesInputChange}
+        />
       </FormControl>
     </Stack>
   );
