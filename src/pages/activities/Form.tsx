@@ -7,6 +7,7 @@ import {
 } from "../../lib/activities/activitiesSlice";
 import { alertError, alertInfo } from "../../lib/alert/alertSlice";
 import StrengthForm from "../../ui/activities/forms/Strength";
+import ClimbingForm from "../../ui/activities/forms/Climbing";
 import BikeForm from "../../ui/activities/forms/Bike";
 import DayHike from "../../ui/activities/forms/DayHike";
 import FullScreenDialog from "../../ui/dialog/FullScreen";
@@ -19,6 +20,7 @@ type activityTypesMap = {
 };
 const activityTypes: activityTypesMap = {
   strength: { title: "Add strength workout", element: <StrengthForm /> },
+  climbing: { title: "Add climbing workout", element: <ClimbingForm /> },
   bike: { title: "Add bike ride", element: <BikeForm /> },
   "day-hike": { title: "Add hike", element: <DayHike /> },
   "": { title: "", element: <div /> },

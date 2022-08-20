@@ -6,9 +6,15 @@ import SpeedDialAction from "@mui/material/SpeedDialAction";
 import DirectionsBikeIcon from "@mui/icons-material/DirectionsBike";
 import HikingIcon from "@mui/icons-material/Hiking";
 import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
+import { GiMountainClimbing } from "react-icons/gi";
 import ActivityForm from "../../pages/activities/Form";
 
 const actions = [
+  {
+    icon: <GiMountainClimbing size="1.7em" />,
+    name: "Climbing",
+    destination: "climbing",
+  },
   {
     icon: <FitnessCenterIcon />,
     name: "Strength",
