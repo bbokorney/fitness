@@ -20,7 +20,7 @@ import { Activity } from "../../../lib/activities/models";
 const validTypes = [
   { displayName: "Core", value: "core" },
   { displayName: "Legs", value: "legs" },
-  { displayName: "Stabilizer and antagonist", value: "stablizer-antagonist" }];
+  { displayName: "Stabilizer and antagonist", value: "stabilizer-antagonist" }];
 
 const StrengthForm = () => {
   const dispatch = useAppDispatch();
@@ -65,7 +65,7 @@ const StrengthForm = () => {
         return;
       }
       setDurationError("");
-      updateActivity({ ...activity, duration: parsed });
+      updateActivity({ ...activity, duration: parsed * 60 });
     }
   };
 
