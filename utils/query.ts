@@ -10,12 +10,18 @@ initializeApp({
 const db = getFirestore();
 
 const main = async () => {
-  const activitiesRef = db.collection("activities");
+  const activitiesRef = db.collection("z-test-activities");
   // const snapshot = await activitiesRef.where("type", "in", ["strength", "bike"]).get();
-  const snapshot = await activitiesRef.where("type", ">=", "strength").get();
+  // const snapshot = await activitiesRef.where("type", ">=", "strength").get();
+  const snapshot = await activitiesRef.get();
+  const items = [];
+  // const items = {};
   snapshot.forEach((doc) => {
-    console.log(doc.id, "=>", doc.data());
+    items.push(doc.data());
+    // items[doc.id] = doc.data();
   });
+
+  console.log(JSON.stringify(items));
 };
 
 main().catch((error) => console.log(error));
