@@ -74,7 +74,7 @@ const StrengthForm = () => {
   const onDateInputChange = (selectedDate: Date | null) => {
     setDate(selectedDate);
     if (selectedDate) {
-      updateActivity({ ...activity, startTime: selectedDate.getUTCSeconds() });
+      updateActivity({ ...activity, startTime: selectedDate.getTime() });
     }
   };
 
