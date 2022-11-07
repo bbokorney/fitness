@@ -2,9 +2,6 @@ import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
 import FormHelperText from "@mui/material/FormHelperText";
 import FormControl from "@mui/material/FormControl";
-import MenuItem from "@mui/material/MenuItem";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
-import InputLabel from "@mui/material/InputLabel";
 import Stack from "@mui/material/Stack";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -17,27 +14,20 @@ import {
 } from "../../../lib/activities/activitiesSlice";
 import { Activity } from "../../../lib/activities/models";
 
-const validTypes = [
-  { displayName: "Core", value: "core" },
-  { displayName: "Legs", value: "legs" },
-  { displayName: "Ankles", value: "ankles" },
-  { displayName: "Stabilizer and antagonist", value: "stabilizer-antagonist" },
-];
-
-const StrengthForm = () => {
+const StairsForm = () => {
   const dispatch = useAppDispatch();
 
   let { activity } = useAppSelector(selectActivitiesForm);
-  activity = { ...activity, type: "strength" };
+  activity = { ...activity, type: "stairs" };
 
   const [duration, setDuration] = useState("");
   const [durationError, setDurationError] = useState("");
+  const [weight, setWeight] = useState("");
+  const [weightError, setWeightError] = useState("");
 
   const [date, setDate] = useState<Date | null>(new Date());
 
   const [notes, setNotes] = useState("");
-
-  const [activityType, setActivityType] = React.useState("");
 
   const updateActivity = (a: Activity) => {
     if (a.startTime === undefined || a.startTime === 0) {
@@ -48,13 +38,6 @@ const StrengthForm = () => {
       && a.type !== ""
       && a.startTime !== undefined && a.startTime > 0) {
       dispatch(updateFormStatus("valid"));
-    }
-  };
-
-  const onActivityTypeChange = (event: SelectChangeEvent) => {
-    setActivityType(event.target.value);
-    if (event.target.value !== "") {
-      updateActivity({ ...activity, subType: event.target.value });
     }
   };
 
@@ -70,6 +53,21 @@ const StrengthForm = () => {
       }
       setDurationError("");
       updateActivity({ ...activity, duration: parsed * 60 });
+    }
+  };
+
+  const onWeightInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setWeight(e.target.value);
+    const parsed = parseFloat(e.target.value);
+    if (Number.isNaN(parsed)) {
+      setWeightError("Weight must be a positive number");
+    } else {
+      if (parsed <= 0) {
+        setWeightError("Weight must be a positive number");
+        return;
+      }
+      setWeightError("");
+      updateActivity({ ...activity, additionalWeight: parsed });
     }
   };
 
@@ -91,18 +89,6 @@ const StrengthForm = () => {
   return (
     <Stack sx={{ mt: 1 }}>
       <FormControl sx={{ m: 1, minWidth: 120 }}>
-        <InputLabel id="demo-simple-select-helper-label">Activity type</InputLabel>
-        <Select
-          labelId="demo-simple-select-helper-label"
-          id="demo-simple-select-helper"
-          value={activityType}
-          label="Workout type"
-          onChange={onActivityTypeChange}
-        >
-          {validTypes.map((t) => <MenuItem key={t.value} value={t.value}>{t.displayName}</MenuItem>)}
-        </Select>
-      </FormControl>
-      <FormControl sx={{ m: 1, minWidth: 120 }}>
         <TextField
           id="duration"
           error={durationError !== ""}
@@ -114,6 +100,19 @@ const StrengthForm = () => {
           helperText={durationError}
         />
         <FormHelperText>minutes</FormHelperText>
+      </FormControl>
+      <FormControl sx={{ m: 1, minWidth: 120 }}>
+        <TextField
+          id="Additional weight"
+          error={weightError !== ""}
+          inputProps={{ inputMode: "numeric" }}
+          label="Additional weight"
+          variant="outlined"
+          value={weight}
+          onChange={onWeightInputChange}
+          helperText={weightError}
+        />
+        <FormHelperText>pounds</FormHelperText>
       </FormControl>
       <FormControl sx={{ m: 1, minWidth: 120 }}>
         <LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -139,4 +138,4 @@ const StrengthForm = () => {
     </Stack>
   );
 };
-export default StrengthForm;
+export default StairsForm;

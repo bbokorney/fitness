@@ -8,4 +8,5 @@ export interface Activity {
   elevation?: number;
   startTime?: number;
   notes?: string;
+  additionalWeight?: number;
 }

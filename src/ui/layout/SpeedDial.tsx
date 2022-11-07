@@ -7,6 +7,7 @@ import DirectionsBikeIcon from "@mui/icons-material/DirectionsBike";
 import HikingIcon from "@mui/icons-material/Hiking";
 import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
 import { GiMountainClimbing } from "react-icons/gi";
+import StairsIcon from "@mui/icons-material/Stairs";
 import ActivityForm from "../../pages/activities/Form";
 
 const actions = [
@@ -19,6 +20,11 @@ const actions = [
     icon: <FitnessCenterIcon />,
     name: "Strength",
     destination: "strength",
+  },
+  {
+    icon: <StairsIcon />,
+    name: "Stairs",
+    destination: "stairs",
   },
   {
     icon: <HikingIcon />,

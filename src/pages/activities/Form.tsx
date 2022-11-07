@@ -6,11 +6,12 @@ import {
   clearFormActivity,
 } from "../../lib/activities/activitiesSlice";
 import { alertError, alertInfo } from "../../lib/alert/alertSlice";
+import FullScreenDialog from "../../ui/dialog/FullScreen";
 import StrengthForm from "../../ui/activities/forms/Strength";
 import ClimbingForm from "../../ui/activities/forms/Climbing";
 import BikeForm from "../../ui/activities/forms/Bike";
 import DayHike from "../../ui/activities/forms/DayHike";
-import FullScreenDialog from "../../ui/dialog/FullScreen";
+import StairsForm from "../../ui/activities/forms/Stairs";
 
 type activityTypesMap = {
   [key: string]: {
@@ -18,8 +19,10 @@ type activityTypesMap = {
     element: React.ReactNode;
   };
 };
+
 const activityTypes: activityTypesMap = {
   strength: { title: "Add strength workout", element: <StrengthForm /> },
+  stairs: { title: "Add stairs workout", element: <StairsForm /> },
   climbing: { title: "Add climbing workout", element: <ClimbingForm /> },
   bike: { title: "Add bike ride", element: <BikeForm /> },
   "day-hike": { title: "Add hike", element: <DayHike /> },
