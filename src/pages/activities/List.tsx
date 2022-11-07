@@ -11,6 +11,24 @@ import {
 import { useAppSelector, useAppDispatch } from "../../lib/store/hooks";
 import { alertError } from "../../lib/alert/alertSlice";
 
+const formatDate = (time?: number) => {
+  if (!time) {
+    return "";
+  }
+  const options: Intl.DateTimeFormatOptions = {
+    weekday: "long", year: "numeric", month: "long", day: "numeric",
+  };
+  return `Start time: ${(new Date(time)).toLocaleString("en-US", options)}`;
+};
+
+const formatDuration = (duration?: number) => {
+  if (!duration) {
+    return "";
+  }
+
+  return `Duration: ${duration / 60} minutes`;
+};
+
 const ActivitiesList = () => {
   const dispatch = useAppDispatch();
   const { status, activities } = useAppSelector(selectActivitiesList);
@@ -19,7 +37,9 @@ const ActivitiesList = () => {
   if (status === "idle") {
     renderedActivities = activities.map((a) => (
       <ListItem key={a.id}>
-        <ListItemText>{a.distance} miles!</ListItemText>
+        <ListItemText>Type: {a.type}</ListItemText>
+        <ListItemText>{formatDate(a.startTime || 0)}</ListItemText>
+        <ListItemText>{formatDuration(a.duration)}</ListItemText>
       </ListItem>
     ));
   }

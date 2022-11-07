@@ -1,5 +1,5 @@
 import {
-  addDoc, collection, getDocs, QueryDocumentSnapshot, Firestore,
+  addDoc, collection, getDocs, QueryDocumentSnapshot, Firestore, query, orderBy,
 } from "firebase/firestore";
 import { Activity } from "./models";
 import getDB from "./firebase";
@@ -12,7 +12,9 @@ export default class ActivitiesAPI {
   db: Firestore = getDB();
 
   list = async (): Promise<Activity[]> => {
-    const querySnapshot = await getDocs(collection(this.db, this.collectionName));
+    const activitiesRef = collection(this.db, this.collectionName);
+    const q = query(activitiesRef, orderBy("startTime", "desc"));
+    const querySnapshot = await getDocs(q);
     return querySnapshot.docs
       .map((doc: QueryDocumentSnapshot) => ({ id: doc.id, ...doc.data() }));
   };
