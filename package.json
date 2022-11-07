@@ -35,7 +35,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "deploy": "npm version patch && npm run build && firebase deploy --only hosting",
-    "utils": "npx tsc --outDir ./bin utils/*"
+    "utils": "npx tsc --watch --outDir ./bin utils/*"
   },
   "eslintConfig": {
     "extends": [
