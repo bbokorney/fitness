@@ -3,36 +3,27 @@ import Box from "@mui/material/Box";
 import MDSpeedDial, { OpenReason } from "@mui/material/SpeedDial";
 import SpeedDialIcon from "@mui/material/SpeedDialIcon";
 import SpeedDialAction from "@mui/material/SpeedDialAction";
-import DirectionsBikeIcon from "@mui/icons-material/DirectionsBike";
-import HikingIcon from "@mui/icons-material/Hiking";
-import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
-import { GiMountainClimbing } from "react-icons/gi";
-import StairsIcon from "@mui/icons-material/Stairs";
 import ActivityForm from "../../pages/activities/Form";
+import ActivityIcon from "../icons/activityIcon";
 
 const actions = [
   {
-    icon: <GiMountainClimbing size="1.7em" />,
     name: "Climbing",
     destination: "climbing",
   },
   {
-    icon: <FitnessCenterIcon />,
     name: "Strength",
     destination: "strength",
   },
   {
-    icon: <StairsIcon />,
     name: "Stairs",
     destination: "stairs",
   },
   {
-    icon: <HikingIcon />,
     name: "Hike",
     destination: "day-hike",
   },
   {
-    icon: <DirectionsBikeIcon />,
     name: "Bike",
     destination: "bike",
   },
@@ -86,7 +77,7 @@ const SpeedDial = () => {
             <SpeedDialAction
               sx={{ color: "primary.main", bgcolor: "secondary.main" }}
               key={action.name}
-              icon={action.icon}
+              icon={<ActivityIcon activityType={action.destination} />}
               tooltipTitle={action.name}
               onClick={() => handleClick(action.destination)}
             />
