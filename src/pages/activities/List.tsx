@@ -68,7 +68,10 @@ const ActivityListItem: React.FC<ActivityListItemProps> = ({ activity: a }) => (
       <ActivityIcon activityType={a.type ?? ""} />
       <Typography>{formatDate(a.startTime)}</Typography>
     </Stack>
-    <Typography>{formatDuration(a.duration)}</Typography>
+    <Stack direction="row" spacing={1} divider={<Divider orientation="vertical" flexItem />}>
+      <Typography>{formatDuration(a.duration)}</Typography>
+      <Typography>{extraInfo(a)}</Typography>
+    </Stack>
   </Stack>
 );
 
@@ -87,5 +90,29 @@ const formatDuration = (duration?: number) => {
     return "";
   }
 
-  return `Duration: ${duration / 60} minutes`;
+  const seconds = duration;
+  const minutes = seconds / 60;
+  const hours = minutes / 60;
+
+  const displayUnit = (amount: number, label: string): string => {
+    if (amount < 1) {
+      return "";
+    }
+
+    return `${amount}${label}`;
+  };
+
+  return `${displayUnit(Math.floor(hours), "h")}
+  ${displayUnit(Math.floor(minutes) % 60, "m")}
+  ${displayUnit(Math.floor(seconds) % 60, "s")}`;
+};
+
+const extraInfo = (a: Activity) => {
+  switch (a.type) {
+    case "strength":
+    case "climbing":
+      return a.subType ?? "";
+    default:
+      return "";
+  }
 };
