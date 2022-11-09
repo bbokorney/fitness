@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Typography, Button, CircularProgress, Divider,
   Stack,
@@ -24,7 +24,7 @@ const ActivitiesList = () => {
     ));
   }
 
-  const onClickRefresh = async () => {
+  const loadActivities = async () => {
     try {
       await dispatch(listActivities()).unwrap();
 
@@ -39,17 +39,27 @@ const ActivitiesList = () => {
       dispatch(alertError(`Error loading activities: ${errorMessage}`));
     }
   };
+
+  useEffect(() => {
+    if (activities.length === 0) {
+      loadActivities();
+    }
+  }, []);
+
   return (
     <>
-      <Typography variant="h6">
-        Activity Log
-      </Typography>
+      <Stack direction="row" sx={{ mt: 1 }} spacing={1} justifyContent="space-between">
+        <Typography variant="h6">
+          Activity Log
+        </Typography>
+        <Button onClick={loadActivities} variant="contained">Refresh</Button>
+      </Stack>
 
-      <Button onClick={onClickRefresh} variant="contained">Refresh</Button>
+      <Stack direction="row" sx={{ mt: 1 }} spacing={1} justifyContent="space-around">
+        {status === "loading" && <CircularProgress />}
+      </Stack>
 
-      {status === "loading" && <CircularProgress />}
-
-      <Stack direction="column" sx={{ mt: 1 }} spacing={1} divider={<Divider />}>
+      <Stack direction="column" sx={{ mt: 1 }} spacing={2} divider={<Divider />}>
         {renderedActivities}
       </Stack>
     </>
@@ -63,7 +73,7 @@ interface ActivityListItemProps {
 }
 
 const ActivityListItem: React.FC<ActivityListItemProps> = ({ activity: a }) => (
-  <Stack direction="column">
+  <Stack direction="column" spacing={0.75}>
     <Stack direction="row" spacing={1}>
       <ActivityIcon activityType={a.type ?? ""} />
       <Typography>{formatDate(a.startTime)}</Typography>
