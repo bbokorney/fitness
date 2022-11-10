@@ -30,7 +30,7 @@ const ViewActivity = () => {
         <Typography>{formatDuration(a.duration)}</Typography>
         <Typography>{extraInfo(a)}</Typography>
       </Stack>
-      <Typography component="pre">{a.notes}</Typography>
+      <Typography sx={{ whiteSpace: "pre-wrap" }} component="pre">{a.notes}</Typography>
     </Stack>
   );
 };
