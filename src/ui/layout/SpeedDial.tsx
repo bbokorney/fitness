@@ -59,7 +59,7 @@ const SpeedDial = () => {
       <Box
         sx={{
           position: "fixed",
-          bottom: "70px",
+          bottom: "86px",
           right: "15px",
           transform: "translateZ(0px)",
           flexGrow: 1,

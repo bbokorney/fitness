@@ -13,7 +13,7 @@ import Home from "../home/Home";
 const Main = () => (
   <BrowserRouter>
     <TopBar />
-    <Container>
+    <Container sx={{ paddingBottom: "72px" }}>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/activities">
