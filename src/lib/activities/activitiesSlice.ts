@@ -85,5 +85,7 @@ export const { updateFormActivity, updateFormStatus, clearFormActivity } = activ
 
 export const selectActivitiesList = (state: RootState) => state.activities.list;
 export const selectActivitiesForm = (state: RootState) => state.activities.form;
+export const selectActivityById = (state: RootState, id: string) => state
+  .activities.list.activities.find((val) => val.id === id);
 
 export default activitiesSlice.reducer;

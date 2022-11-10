@@ -9,6 +9,7 @@ import Settings from "../settings/Settings";
 import Account from "../account/Account";
 import SpeedDial from "../../ui/layout/SpeedDial";
 import Home from "../home/Home";
+import ViewActivity from "../activities/View";
 
 const Main = () => (
   <BrowserRouter>
@@ -19,6 +20,7 @@ const Main = () => (
         <Route path="/activities">
           <Route path="list" element={<ActivitesList />} />
           <Route path="stats" element={<ActivitiesStats />} />
+          <Route path=":id" element={<ViewActivity />} />
         </Route>
         <Route path="/settings" element={<Settings />} />
         <Route path="/account" element={<Account />} />

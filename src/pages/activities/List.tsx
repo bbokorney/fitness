@@ -3,9 +3,10 @@ import {
   Typography, Button, CircularProgress, Divider,
   Stack,
 } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import { Activity } from "../../lib/activities/models";
 import ActivityIcon from "../../ui/icons/activityIcon";
-
+import { formatDate, formatDuration, extraInfo } from "../../ui/activities/utils";
 import {
   selectActivitiesList,
   listActivities,
@@ -15,12 +16,13 @@ import { alertError } from "../../lib/alert/alertSlice";
 
 const ActivitiesList = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const { status, activities } = useAppSelector(selectActivitiesList);
 
   let renderedActivities;
   if (status === "idle") {
     renderedActivities = activities.map((a) => (
-      <ActivityListItem key={a.id} activity={a} />
+      <ActivityListItem key={a.id} activity={a} onClick={() => navigate(`/activities/${a.id}`)} />
     ));
   }
 
@@ -70,10 +72,11 @@ export default ActivitiesList;
 
 interface ActivityListItemProps {
   activity: Activity;
+  onClick: () => void;
 }
 
-const ActivityListItem: React.FC<ActivityListItemProps> = ({ activity: a }) => (
-  <Stack direction="column" spacing={0.75}>
+const ActivityListItem: React.FC<ActivityListItemProps> = ({ activity: a, onClick }) => (
+  <Stack direction="column" spacing={0.75} onClick={onClick}>
     <Stack direction="row" spacing={1}>
       <ActivityIcon activityType={a.type ?? ""} />
       <Typography>{formatDate(a.startTime)}</Typography>
@@ -84,45 +87,3 @@ const ActivityListItem: React.FC<ActivityListItemProps> = ({ activity: a }) => (
     </Stack>
   </Stack>
 );
-
-const formatDate = (time?: number) => {
-  if (!time) {
-    return "";
-  }
-  const options: Intl.DateTimeFormatOptions = {
-    weekday: "long", year: "numeric", month: "long", day: "numeric",
-  };
-  return (new Date(time)).toLocaleString("en-US", options);
-};
-
-const formatDuration = (duration?: number) => {
-  if (!duration) {
-    return "";
-  }
-
-  const seconds = duration;
-  const minutes = seconds / 60;
-  const hours = minutes / 60;
-
-  const displayUnit = (amount: number, label: string): string => {
-    if (amount < 1) {
-      return "";
-    }
-
-    return `${amount}${label}`;
-  };
-
-  return `${displayUnit(Math.floor(hours), "h")}
-  ${displayUnit(Math.floor(minutes) % 60, "m")}
-  ${displayUnit(Math.floor(seconds) % 60, "s")}`;
-};
-
-const extraInfo = (a: Activity) => {
-  switch (a.type) {
-    case "strength":
-    case "climbing":
-      return a.subType ?? "";
-    default:
-      return "";
-  }
-};
