@@ -3,6 +3,7 @@ import {
   Typography, Button, CircularProgress, Divider,
   Stack,
 } from "@mui/material";
+import CachedIcon from "@mui/icons-material/Cached";
 import { useNavigate } from "react-router-dom";
 import { Activity } from "../../lib/activities/models";
 import ActivityIcon from "../../ui/icons/activityIcon";
@@ -54,7 +55,7 @@ const ActivitiesList = () => {
         <Typography variant="h6">
           Activity Log
         </Typography>
-        <Button onClick={loadActivities} variant="contained">Refresh</Button>
+        <Button onClick={loadActivities} variant="contained"><CachedIcon /></Button>
       </Stack>
 
       <Stack direction="row" sx={{ mt: 1 }} spacing={1} justifyContent="space-around">
