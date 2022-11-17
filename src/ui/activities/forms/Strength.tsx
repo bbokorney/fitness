@@ -30,14 +30,15 @@ const StrengthForm = () => {
   let { activity } = useAppSelector(selectActivitiesForm);
   activity = { ...activity, type: "strength" };
 
-  const [duration, setDuration] = useState("");
+  const [duration, setDuration] = useState(`${activity.duration ? activity.duration / 60 : ""}`);
   const [durationError, setDurationError] = useState("");
 
-  const [date, setDate] = useState<Date | null>(new Date());
+  const [date, setDate] = useState<Date | null>(activity.startTime
+    ? new Date(activity.startTime) : new Date());
 
-  const [notes, setNotes] = useState("");
+  const [notes, setNotes] = useState(activity.notes ?? "");
 
-  const [activityType, setActivityType] = React.useState("");
+  const [activityType, setActivityType] = React.useState(activity.subType ?? "");
 
   const updateActivity = (a: Activity) => {
     if (a.startTime === undefined || a.startTime === 0) {

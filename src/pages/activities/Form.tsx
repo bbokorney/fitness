@@ -5,6 +5,7 @@ import {
   upsertActivity,
   clearFormActivity,
 } from "../../lib/activities/activitiesSlice";
+import { clearFormDialogState, selectFormDialog } from "../../lib/formDialog/formDialogSlice";
 import { alertError, alertInfo } from "../../lib/alert/alertSlice";
 import FullScreenDialog from "../../ui/dialog/FullScreen";
 import StrengthForm from "../../ui/activities/forms/Strength";
@@ -21,27 +22,28 @@ type activityTypesMap = {
 };
 
 const activityTypes: activityTypesMap = {
-  strength: { title: "Add strength workout", element: <StrengthForm /> },
-  stairs: { title: "Add stairs workout", element: <StairsForm /> },
-  climbing: { title: "Add climbing workout", element: <ClimbingForm /> },
-  bike: { title: "Add bike ride", element: <BikeForm /> },
-  "day-hike": { title: "Add hike", element: <DayHike /> },
+  strength: { title: "strength workout", element: <StrengthForm /> },
+  stairs: { title: "stairs workout", element: <StairsForm /> },
+  climbing: { title: "climbing workout", element: <ClimbingForm /> },
+  bike: { title: "bike ride", element: <BikeForm /> },
+  "day-hike": { title: "hike", element: <DayHike /> },
   "": { title: "", element: <div /> },
 };
 
 type ActivityFormProps = {
-  open?: boolean;
   onClose?: () => void;
-  activityType: string;
 }
 
 const ActivityForm: React.FC<ActivityFormProps> = ({
-  open = false, onClose = () => {}, activityType,
+  onClose = () => {},
 }) => {
   const dispatch = useAppDispatch();
+  const { open, activityType, actionType } = useAppSelector(selectFormDialog);
   const { status, activity } = useAppSelector(selectActivitiesForm);
 
   const onDialogClose = () => {
+    dispatch(clearFormDialogState());
+    dispatch(clearFormActivity());
     onClose();
   };
 
@@ -70,7 +72,7 @@ const ActivityForm: React.FC<ActivityFormProps> = ({
   return (
     <FullScreenDialog
       open={open}
-      title={selectedActivityType.title}
+      title={`${actionType} ${selectedActivityType.title}`}
       onClose={onDialogClose}
       onSave={onClickSave}
       saveButtonDisabled={status !== "valid"}

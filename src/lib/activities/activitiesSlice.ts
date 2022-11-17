@@ -52,8 +52,7 @@ export const activitiesSlice = createSlice({
       state.form.status = action.payload;
     },
     clearFormActivity: (state) => {
-      state.form.activity = {};
-      state.form.status = "invalid";
+      state.form = initialState.form;
     },
   },
   extraReducers: (builder) => {

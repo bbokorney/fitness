@@ -5,6 +5,8 @@ import SpeedDialIcon from "@mui/material/SpeedDialIcon";
 import SpeedDialAction from "@mui/material/SpeedDialAction";
 import ActivityForm from "../../pages/activities/Form";
 import ActivityIcon from "../icons/activityIcon";
+import { useAppDispatch } from "../../lib/store/hooks";
+import { updateFormDialogState } from "../../lib/formDialog/formDialogSlice";
 
 const actions = [
   {
@@ -30,9 +32,8 @@ const actions = [
 ];
 
 const SpeedDial = () => {
+  const dispatch = useAppDispatch();
   const [open, setOpen] = useState(false);
-  const [formOpen, setFormOpen] = useState(false);
-  const [activityType, setActivityType] = useState("");
 
   const handleOpen = (_: React.SyntheticEvent<unknown>, reason: OpenReason) => {
     if (reason !== "focus") {
@@ -45,13 +46,11 @@ const SpeedDial = () => {
   };
 
   const handleDialogClose = () => {
-    setFormOpen(false);
     setOpen(false);
   };
 
   const handleClick = (aType: string) => {
-    setActivityType(aType);
-    setFormOpen(true);
+    dispatch(updateFormDialogState({ open: true, activityType: aType, actionType: "Add" }));
   };
 
   return (
@@ -84,7 +83,7 @@ const SpeedDial = () => {
           ))}
         </MDSpeedDial>
       </Box>
-      <ActivityForm open={formOpen} activityType={activityType} onClose={handleDialogClose} />
+      <ActivityForm onClose={handleDialogClose} />
     </>
   );
 };
