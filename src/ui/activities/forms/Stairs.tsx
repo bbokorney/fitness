@@ -64,7 +64,7 @@ const StairsForm = () => {
     if (Number.isNaN(parsed)) {
       setWeightError("Weight must be a positive number");
     } else {
-      if (parsed <= 0) {
+      if (parsed < 0) {
         setWeightError("Weight must be a positive number");
         return;
       }
