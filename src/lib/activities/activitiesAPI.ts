@@ -1,7 +1,7 @@
 import {
   addDoc, collection, getDocs,
   QueryDocumentSnapshot, Firestore, query, orderBy,
-  setDoc, doc,
+  setDoc, doc, deleteDoc,
 } from "firebase/firestore";
 import { Activity } from "./models";
 import getDB from "./firebase";
@@ -12,6 +12,13 @@ export default class ActivitiesAPI {
     : "activities";
 
   db: Firestore = getDB();
+
+  docReference = (a: Activity) => {
+    if (!a.id) {
+      throw new Error("Activity has no ID");
+    }
+    return doc(this.db, this.collectionName, a.id);
+  };
 
   list = async (): Promise<Activity[]> => {
     const activitiesRef = collection(this.db, this.collectionName);
@@ -24,7 +31,7 @@ export default class ActivitiesAPI {
   upsert = async (a: Activity): Promise<Activity> => {
     a = { ...a, source: "app" };
     if (a.id) {
-      await setDoc(doc(this.db, this.collectionName, a.id), a);
+      await setDoc(this.docReference(a), a);
       return a;
     }
     const docRef = await addDoc(collection(this.db, this.collectionName), a);
@@ -33,4 +40,6 @@ export default class ActivitiesAPI {
       ...a,
     };
   };
+
+  delete = async (a: Activity): Promise<void> => deleteDoc(this.docReference(a));
 }

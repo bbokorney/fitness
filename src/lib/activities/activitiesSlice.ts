@@ -41,6 +41,11 @@ export const upsertActivity = createAsyncThunk(
   async (a: Activity) => api.upsert(a),
 );
 
+export const deleteActivity = createAsyncThunk(
+  "activities/deleteActivity",
+  async (a: Activity) => api.delete(a),
+);
+
 export const activitiesSlice = createSlice({
   name: "activities",
   initialState,
