@@ -20,16 +20,17 @@ const ActivitiesList = () => {
   const navigate = useNavigate();
   const { status, activities } = useAppSelector(selectActivitiesList);
 
-  let renderedActivities;
-  if (status === "idle") {
-    renderedActivities = activities.map((a) => (
-      <ActivityListItem key={a.id} activity={a} onClick={() => navigate(`/activities/${a.id}`)} />
-    ));
-  }
+  const renderedActivities = activities.map((a) => (
+    <ActivityListItem
+      key={a.id}
+      activity={a}
+      onClick={() => navigate(`/activities/${a.id}`)}
+    />
+  ));
 
-  const loadActivities = async () => {
+  const loadActivities = async (after?: Activity) => {
     try {
-      await dispatch(listActivities()).unwrap();
+      await dispatch(listActivities(after)).unwrap();
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
@@ -40,14 +41,34 @@ const ActivitiesList = () => {
         console.log(error);
       }
       dispatch(alertError(`Error loading activities: ${errorMessage}`));
+      console.log(error);
     }
   };
 
+  const bottomRef = React.createRef<Element>();
+
   useEffect(() => {
-    if (activities.length === 0) {
-      loadActivities();
+    if (!bottomRef.current) {
+      return () => {};
     }
-  }, []);
+
+    const ref = bottomRef.current;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && status !== "loading") {
+            loadActivities(activities[activities.length - 1]);
+          }
+        });
+      },
+    );
+
+    observer.observe(ref);
+
+    return () => {
+      observer.unobserve(ref);
+    };
+  }, [activities]);
 
   return (
     <>
@@ -55,16 +76,18 @@ const ActivitiesList = () => {
         <Typography variant="h6">
           Activity Log
         </Typography>
-        <Button onClick={loadActivities} variant="contained"><CachedIcon /></Button>
+        <Button onClick={() => loadActivities()} variant="contained"><CachedIcon /></Button>
+      </Stack>
+
+      <Stack direction="column" sx={{ mt: 1, mb: 2 }} spacing={2} divider={<Divider />}>
+        {renderedActivities}
       </Stack>
 
       <Stack direction="row" sx={{ mt: 1 }} spacing={1} justifyContent="space-around">
         {status === "loading" && <CircularProgress />}
       </Stack>
 
-      <Stack direction="column" sx={{ mt: 1, mb: 2 }} spacing={2} divider={<Divider />}>
-        {renderedActivities}
-      </Stack>
+      <Stack ref={bottomRef} />
     </>
   );
 };
@@ -72,12 +95,13 @@ const ActivitiesList = () => {
 export default ActivitiesList;
 
 interface ActivityListItemProps {
+  ref?: React.RefObject<unknown>;
   activity: Activity;
   onClick: () => void;
 }
 
-const ActivityListItem: React.FC<ActivityListItemProps> = ({ activity: a, onClick }) => (
-  <Stack direction="column" spacing={0.75} onClick={onClick}>
+const ActivityListItem: React.FC<ActivityListItemProps> = ({ activity: a, onClick, ref }) => (
+  <Stack ref={ref} direction="column" spacing={0.75} onClick={onClick}>
     <Stack direction="row" spacing={1}>
       <ActivityIcon activityType={a.type ?? ""} />
       <Typography>{formatDate(a.startTime)}</Typography>

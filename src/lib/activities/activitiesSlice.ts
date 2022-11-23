@@ -33,7 +33,7 @@ const initialState: ActivitiesState = {
 
 export const listActivities = createAsyncThunk(
   "activities/listActivities",
-  async () => api.list(),
+  async (a?: Activity) => api.list(a),
 );
 
 export const upsertActivity = createAsyncThunk(
@@ -67,7 +67,9 @@ export const activitiesSlice = createSlice({
       })
       .addCase(listActivities.fulfilled, (state, action) => {
         state.list.status = "idle";
-        state.list.activities = action.payload;
+        const newActivites = action.payload
+          .filter((a) => !state.list.activities.find((ac) => ac.id === a.id));
+        state.list.activities.push(...newActivites);
       })
       .addCase(listActivities.rejected, (state) => {
         state.list.status = "idle";
